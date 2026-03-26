@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { words } from "./data";
 
-const LAYOUT = 0.3;
+const LAYOUT = 0.15;
 const TEXT = 0.15;
 
 function App() {
