@@ -1,52 +1,46 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { words } from "./data";
 
-const sentences = [
-  "The quick brown fox jumps over the lazy dog",
-  "The quick brown fox jumps over th",
-  "s 123i9jasl ekf aslkdf s",
-  "1 231k2j 3lk21j3l12k3j l2k3j12lk3j k",
-  "The qu12312312th",
-  " sldkjf kldjf ls812u312lk lm1k23m k12m3 l",
-];
-
-const LAYOUT_DURATION = 2;
+const LAYOUT = 0.3;
+const TEXT = 0.15;
 
 function App() {
-  const [sentence, setSentence] = useState("123 123 23 12");
-  const [next, setNext] = useState<string | null>(null);
+  const [word, setWord] = useState(words[0]);
+  const [nextWord, setNextWord] = useState<string | null>(null);
 
   return (
-    <>
-      <motion.button
-        className="bg-white text-black py-2 px-4 rounded-full "
-        onClick={() => {
-          if (next) return;
-          setNext(sentences[Math.floor(Math.random() * sentences.length)]);
+    <motion.button
+      className="bg-white text-black py-2 px-4"
+      onClick={() => {
+        if (!nextWord)
+          setNextWord(words[Math.floor(Math.random() * words.length)]);
+      }}
+      layout
+      transition={{ layout: { duration: LAYOUT } }}
+      style={{ borderRadius: 9999 }}
+    >
+      <AnimatePresence
+        onExitComplete={() => {
+          setWord(nextWord!);
+          setNextWord(null);
         }}
-        layout
-        transition={{ duration: LAYOUT_DURATION }}
       >
-        <AnimatePresence
-          onExitComplete={() => {
-            setSentence(next!);
-            setNext(null);
-          }}
-        >
-          {!next && (
-            <motion.span
-              key={sentence}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.15, delay: LAYOUT_DURATION }}
-            >
-              {sentence}
-            </motion.span>
-          )}
-        </AnimatePresence>
-      </motion.button>
-    </>
+        {!nextWord && (
+          <motion.span
+            key={word}
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: 1,
+              transition: { duration: TEXT, delay: LAYOUT },
+            }}
+            exit={{ opacity: 0, transition: { duration: TEXT } }}
+          >
+            {word}
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </motion.button>
   );
 }
 
