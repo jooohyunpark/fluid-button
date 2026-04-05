@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import type { HTMLMotionProps } from "motion/react";
 
-function Button({ children, ...props }) {
-  const [displayed, setDisplayed] = useState(children);
-  const [pending, setPending] = useState<string | null>(null);
+type ButtonProps = Omit<HTMLMotionProps<"button">, "children"> & {
+  children: ReactNode;
+};
+
+function Button({ children, ...props }: ButtonProps) {
+  const [displayed, setDisplayed] = useState<ReactNode>(children);
+  const [pending, setPending] = useState<ReactNode | null>(null);
 
   if (children !== displayed && children !== pending) {
     setPending(children);
@@ -25,9 +30,12 @@ function Button({ children, ...props }) {
       >
         {!pending && (
           <motion.span
-            key={displayed}
+            key={String(displayed)}
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1, transition: { duration: 0.15, delay: 0.15 } }}
+            animate={{
+              opacity: 1,
+              transition: { duration: 0.15, delay: 0.15 },
+            }}
             exit={{ opacity: 0, transition: { duration: 0.15 } }}
           >
             {displayed}
