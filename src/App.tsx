@@ -6,7 +6,9 @@ function App() {
   const [word, setWord] = useState(words[0]);
 
   return (
-    <Button onClick={() => setWord(words[Math.floor(Math.random() * words.length)])}>
+    <Button
+      onClick={() => setWord(words[Math.floor(Math.random() * words.length)])}
+    >
       {word}
     </Button>
   );
