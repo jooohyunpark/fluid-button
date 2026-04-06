@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import type { HTMLMotionProps } from "motion/react";
 import type { ReactNode } from "react";
 
@@ -15,7 +15,19 @@ function Button({ children, ...props }: ButtonProps) {
       style={{ borderRadius: 9999 }}
       {...props}
     >
-      <motion.span>{children}</motion.span>
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.span
+          layout
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.15 }}
+          className="inline-block"
+          key={String(children)}
+        >
+          {children}
+        </motion.span>
+      </AnimatePresence>
     </motion.button>
   );
 }
