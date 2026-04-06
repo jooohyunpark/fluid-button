@@ -10,8 +10,8 @@ function Button({ children, ...props }: ButtonProps) {
   return (
     <motion.button
       layout
-      transition={{ layout: { duration: 1 } }}
-      className="bg-white text-black py-2 px-6"
+      transition={{ layout: { duration: 0.3 } }}
+      className="bg-white text-black py-2 px-6 inline-flex items-center justify-center"
       style={{ borderRadius: 9999 }}
       {...props}
     >
@@ -22,7 +22,7 @@ function Button({ children, ...props }: ButtonProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.3 }}
           className="inline-block"
           key={String(children)}
         >
