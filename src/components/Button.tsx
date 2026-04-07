@@ -45,7 +45,7 @@ function Button({ children, ...props }: ButtonProps) {
   return (
     <motion.button
       animate={{ width: bounds.width > 0 ? bounds.width : "auto" }}
-      transition={{ duration: 0.15 }}
+      transition={{ duration: 0.2 }}
       className="bg-white text-black inline-flex items-center justify-center"
       style={{ borderRadius: 9999 }}
       {...props}
@@ -55,7 +55,7 @@ function Button({ children, ...props }: ButtonProps) {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.15, ease: "easeInOut" }}
+          transition={{ duration: 0.2, ease: "easeInOut", delay: 0.05 }}
           className="inline-block whitespace-nowrap px-4 py-2"
           key={String(children)}
         >
